@@ -1,0 +1,156 @@
+---
+title: "Exercise 2: Arithmetic Operation"
+author: "Tsidkenu Maravilla"
+date: "2026-09-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Part A - Arithmetic Operations
+```{r}
+a <- 17
+b <- 5
+
+a+b
+a-b
+a*b
+a/b
+
+a %% b
+a %/% b
+
+2^10
+```
+## Part B - Basic Data Types
+```{r}
+x <- 42
+y <- 42L
+z <- "42"
+w <- TRUE
+v <- 3 + 2i
+
+typeof(x)
+typeof(y)
+typeof(z)
+typeof(w)
+typeof(v)
+
+class(x)
+class(y)
+class(z)
+class(w)
+class(v)
+
+mode(x)
+mode(y)
+mode(z)
+mode(w)
+mode(v)
+```
+## Part C - Type Conversion
+```{r}
+num_string <- "123"
+num_val <- as.numeric(num_string)
+typeof(num_val)
+class(num_val)
+mode(num_val)
+
+as.logical(0)
+as.logical(1)
+
+bad_string <- "hello123"
+as.numeric(bad_string)
+```
+## Part D - Strings, paste(), and paste0()
+```{r}
+first_name <- "Juan"
+last_name <- "Dela Cruz"
+
+print(first_name)
+print(last_name)
+cat(first_name, last_name)
+
+full_name <- paste(first_name, last_name)
+full_name
+paste0(first_name, last_name)
+
+paste(first_name, last_name, sep = "-")
+
+age <- 21
+paste0(full_name, "is", age, "years old.")
+
+```
+Question #1: Run 17 / 5, 17 %% 5, and 17 %/% 5 side by side. In your own words, explain how these three results relate to each other mathematically.
+
+(Regular division gives you the exact decimal result, while integer division leaves only the whole number. Modulo gives you the remaining leftover value, which lets you reconstruct the original number.)
+
+
+
+Question #2: Predict the output of 10 %% 3 and 10 %/% 3 before running the code. Were you correct? If not, explain what you misunderstood.
+
+(10 %% 3 gives 1 because 1 is the leftover remainder, and 10 %/% 3 gives 3 because 3 fits into 10 three full times. My prediction was correct since these operators just separate division into whole and leftover parts.)
+
+Question #3): x <- 42 and y <- 42L look almost identical, but typeof(x) and typeof(y) give different answers. Explain the difference in your own words.
+
+(The L suffix forces R to store a value strictly as an integer. Without it, R defaults to storing numbers as decimals, even if they look like whole numbers.)
+
+
+
+Question #4: Is typeof() ever different from class() and from mode() for the same object? Look at your results above and explain any case where this happens (or, if you did not see one, explain what you would expect for a matrix or factor).
+
+(Yes, this happens when an object uses a basic atomic type under the hood (typeof) while displaying a higher-level structure (class). For example, factors use integers behind the scenes but show "factor" as their class.)
+
+Question #5: When you ran the conversion-fail chunk, R produced NA and a warning instead of stopping with an error.
+
+Why do you think R is designed to give a warning here rather than crashing the whole script?
+
+(Why R uses warnings: R issues a warning so your script keeps running instead of crashing over a single bad value.)
+
+What are the risks of this behavior if you don’t read your warnings?
+
+(Risks of ignoring warnings: Ignoring them allows missing values (NA) to sneak into your math and ruin your final results.)
+
+
+Question #6: as.logical(0) and as.logical(1) convert to FALSE and TRUE.
+
+What do you think as.logical(2) and as.logical(-1)` will produce?
+( Any non-zero number will convert to TRUE.)
+
+
+
+Test it, then explain the rule R seems to be following.
+(R follows the rule where zero strictly evaluates to FALSE, while any non-zero number evaluates to TRUE.)
+
+Question #7: paste() and paste0() produced different results for the same two strings. Explain exactly why, referencing what each function does by default.
+
+(paste() automatically inserts a space between text items by default. In contrast, paste0() squishes them together without adding any spaces.)
+
+Question #8: In the strings-numbers chunk, you combined a character string with a numeric variable (age) using paste0() without first converting age to a string.
+
+Did this cause an error? Explain what paste0() does internally to make this work, and how it relates to the type conversions you practiced in Part C.
+
+
+(No error occurred because paste0() automatically converts numbers to text behind the scenes before combining them. This works just like calling as.character() on the numeric variable.)
+
+Question #9: Some programming languages automatically convert "5" + 5 into 10 without an error. R does not.
+
+Based on what you’ve learned about R’s data types in this lab, why do you think R requires an explicit conversion instead of guessing what the programmer meant?
+
+(R uses strict typing to avoid making wrong assumptions about what you want to calculate. Requiring explicit conversions prevents sneaky bugs like accidentally adding text to numbers.)
+
+
+
+Question #10:
+Suppose a classmate writes a script that reads a column of “numbers” from a text file. The column looks numeric, but when they try sum() on it, R throws an error. Based on everything in this lab (types, typeof()/class()/mode(), conversion, warnings), write a short paragraph explaining what likely went wrong and the steps you’d take to diagnose and fix it.
+
+(The column likely imported as text due to non-numeric symbols or formatting, which prevents sum() from working. You can fix this by checking the type with class(), cleaning out weird characters, and converting it using as.numeric().)
+
+
+
+Conclusion
+In 3–4 sentences, summarize what you learned about how R handles different data types, and why understanding typeof()/class() and conversion functions matters before doing arithmetic or combining data.
+
+(This lab shows how R categorizes different data types and handles conversions behind the scenes. Understanding tools like typeof() and class() helps you catch bad data early and prevent calculation errors.)
+
