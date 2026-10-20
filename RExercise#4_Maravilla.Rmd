@@ -1,0 +1,96 @@
+---
+title: "RExercise#4_Maravilla.Rmd"
+author: "Tsidkenu Maravilla"
+date: "2026-10-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Part A — Creating Vectors and List:
+```{r}
+#Question 1
+# a. Create a vector for the worker's age.
+worker_age <- c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 43, 53, 41, 51, 35, 24, 33, 41, 53, 40, 18, 44, 38, 41, 48, 27, 39, 19, 30, 61, 54, 58, 26, 18)
+
+# b. How many data points?
+length(worker_age)
+
+# c. Find the minimum and the maximum value of worker's age.
+min(worker_age)
+max(worker_age)
+
+# d. Access the 13th to 18th elements and 33th to 35th elements of worker's age.
+worker_age[c(13:18, 33:35)]
+
+# e. Access all but the 10th, 20th, 30th and 40th elements.
+worker_age[-c(10, 20, 30, 40)]
+
+# f. Modify the 4th, 14th, 24th, and 44th elements with value = 0.
+worker_age[c(4, 14, 24, 44)] <- 0
+
+# a. Create a vector for the worker's age.
+worker_age <- c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 43, 53, 41, 51, 35, 24, 33, 41, 53, 40, 18, 44, 38, 41, 48, 27, 39, 19, 30, 61, 54, 58, 26, 18)
+
+# b. How many data points?
+length(worker_age)
+
+# c. Find the minimum and the maximum value of worker's age.
+min(worker_age)
+max(worker_age)
+
+# d. Access the 13th to 18th elements and 33th to 35th elements of worker's age.
+worker_age[c(13:18, 33:35)]
+
+# e. Access all but the 10th, 20th, 30th and 40th elements.
+worker_age[-c(10, 20, 30, 40)]
+
+# f. Modify the 4th, 14th, 24th, and 44th elements with value = 0.
+worker_age[c(4, 14, 24, 44)] <- 0
+
+#Question 2
+data(rivers)
+
+# Compute statistics
+river_stats <- c(
+  Count = length(rivers),
+  Sum = sum(rivers),
+  Mean = mean(rivers),
+  Median = median(rivers),
+  Variance = var(rivers),
+  StdDev = sd(rivers),
+  Min = min(rivers),
+  Max = max(rivers)
+)
+
+river_stats
+
+#Question 3
+# Create vectors for Forbes data (example sample vectors based on top attributes)
+celeb_name <- c("Oprah Winfrey", "Tiger Woods", "Madonna", "Tom Cruise", "Steven Spielberg")
+power_ranking <- c(1, 2, 3, 4, 5)
+pay_annual <- c(225, 87, 40, 31, 200)
+
+# Create data frame or named list representation
+forbes_df <- data.frame(Name = celeb_name, PowerRank = power_ranking, Pay = pay_annual)
+
+# Modify J.K. Rowling (or target row) power ranking to 15 and pay to 90
+
+#Question 4
+# a. Create a list of ten vegetables
+vegetables <- list("Carrot", "Broccoli", "Spinach", "Potato", "Tomato", "Cabbage", "Lettuce", "Cucumber", "Eggplant", "Pumpkin")
+
+# b. Add 2 additional vegetables after the last vegetables
+vegetables <- append(vegetables, list("Zucchini", "Radish"))
+
+# c. How many datapoints do you have?
+length(vegetables)
+
+# d. Add 4 additional vegetables after index 5
+vegetables <- append(vegetables, list("Garlic", "Onion", "Peas", "Corn"), after = 5)
+
+# e. How many datapoints does your vegetable list have now?
+length(vegetables)
+```
