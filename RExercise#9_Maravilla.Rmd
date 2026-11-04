@@ -1,0 +1,76 @@
+---
+title: "R Lab: Basic Operations of R Programming"
+author: "Tsidkenu Lumbo Maravilla"
+date: "2026-09-25"
+output: html_document
+---
+```{r}
+# TODO: Create the shoe size and height data frame and save as shoesize.csv
+shoes <- data.frame(
+  Respondent = 1:6,
+  Gender = c("Male", "Female", "Male", "Female", "Male", "Female"),
+  ShoeSize = c(10, 7, 11, 6.5, 12, 8),
+  Height = c(175, 160, 180, 155, 185, 165)
+)
+write.csv(shoes, "shoesize.csv", row.names = FALSE)
+
+# TODO: Import the saved csv and display the last 5 rows
+shoes <- read.csv("shoesize.csv")
+tail(shoes, 5)
+
+# TODO: Describe the data by showing structure and content
+str(shoes)
+print(shoes)
+
+# TODO: Inspect dimensions (rows and columns)
+dim(shoes)
+nrow(shoes)
+ncol(shoes)
+
+# TODO: Inspect using summary()
+summary(shoes)
+
+# TODO: Create subsets by males and females with shoe size and height
+male_subset <- subset(shoes, Gender == "Male", select = c(ShoeSize, Height))
+female_subset <- subset(shoes, Gender == "Female", select = c(ShoeSize, Height))
+print(male_subset)
+print(female_subset)
+
+# TODO: Find the mean of shoe size and height of the respondents
+mean(shoes$ShoeSize, na.rm = TRUE)
+mean(shoes$Height, na.rm = TRUE)
+
+# TODO: Create factors for the gender
+shoes$Gender <- as.factor(shoes$Gender)
+
+# TODO: Compute for the correlation between shoe size and height
+cor(shoes$ShoeSize, shoes$Height)
+
+# TODO: Return all rows where ShoeSize is greater than or equal to 11
+shoes[shoes$ShoeSize >= 11, ]
+```
+Answers and Explanations
+
+Question #2
+
+Gender is a category with no order, so changing it into a factor tells R to treat it as a group rather than just random text.
+
+Question #3
+
+R Markdown uses the folder where the .Rmd file is saved as its home base, which keeps file paths working properly so other people can run the code without file errors.
+
+Question #4
+
+R usually imports text as characters. If a stray letter gets into a number column like shoe size, R might read the whole column as text and break math functions like averages or correlations.
+
+Question #5
+
+Checking both the top and bottom of the table helps catch mistakes at either end, whereas just checking the top might miss missing data or bad rows at the very bottom.
+
+Question #6
+
+The cor() function gives us the correlation number between shoe size and height, and the filter pulls out everyone whose shoe size is 11 or bigger.
+
+Question #7
+
+Guys generally have higher heights and shoe sizes than girls, which shows that gender plays a big role and should probably be looked at separately.
