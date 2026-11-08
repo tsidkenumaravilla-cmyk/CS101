@@ -1,0 +1,88 @@
+---
+title: "R Lab: Data Structures - Data Frames"
+author: "Tsidkenu Lumbo Maravilla"
+date: "2026-09-25"
+output: html_document
+---
+```{r}
+# TODO: Set up the raw survey data by making individual vectors for each column
+respondent <- 1:20
+sex <- c(1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 1, 2, 2, 1, 2)
+fathers_occupation <- c(1, 1, 3, 1, 1, 1, 2, 1, 3, 1, 2, 3, 1, 1, 3, 1, 1, 2, 2, 2)
+persons_at_home <- c(5, 7, 3, 8, 5, 5, 9, 7, 8, 4, 7, 5, 4, 4, 7, 8, 3, 5, 11, 6)
+siblings_at_school <- c(6, 4, 4, 1, 2, 2, 6, 5, 3, 2, 3, 2, 3, 5, 2, 1, 3, 2, 5, 2)
+types_of_houses <- c(1, 1, 1, 1, 1, 1, 3, 1, 1, 2, 2, 3, 2, 2, 3, 3, 3, 3, 3, 2)
+
+# TODO: Check that all vectors contain exactly 20 items before merging them
+length(respondent)
+length(sex)
+length(fathers_occupation)
+length(persons_at_home)
+length(siblings_at_school)
+length(types_of_houses)
+
+# TODO: Combine all vectors into a single data frame and print the table
+survey <- data.frame(
+  Respondent = respondent,
+  Sex = sex,
+  FathersOccupation = fathers_occupation,
+  PersonsAtHome = persons_at_home,
+  SiblingsAtSchool = siblings_at_school,
+  TypesOfHouses = types_of_houses
+)
+print(survey)
+
+# TODO: Run structure and summary commands to inspect the dataset details
+str(survey)
+summary(survey)
+
+# TODO: Check the table dimensions, total row count, and column count
+dim(survey)
+nrow(survey)
+ncol(survey)
+
+# TODO: Convert numeric codes into proper descriptive factor labels
+survey$Sex <- factor(survey$Sex, levels = c(1, 2), labels = c("Male", "Female"))
+survey$FathersOccupation <- factor(survey$FathersOccupation, levels = c(1, 2, 3), labels = c("Farmer", "Driver", "Others"))
+survey$TypesOfHouses <- factor(survey$TypesOfHouses, levels = c(1, 2, 3), labels = c("Wood", "Semi-Concrete", "Concrete"))
+
+# TODO: Calculate the average values for the numeric columns
+sapply(survey[, c("Respondent", "PersonsAtHome", "SiblingsAtSchool")], mean)
+
+# TODO: Display just the first five rows of the survey table
+head(survey, 5)
+
+# TODO: Save the house type column separately as a vector
+types_houses <- survey$TypesOfHouses
+print(types_houses)
+
+# TODO: Filter the table to show only male respondents whose fathers are farmers
+subset(survey, Sex == "Male" & FathersOccupation == "Farmer")
+
+# TODO: Filter the table to show only female respondents with five or more siblings in school
+subset(survey, Sex == "Female" & SiblingsAtSchool >= 5)
+```
+Answers and Explanations
+Question #2:
+
+Checking vector lengths is required because data frames need an equal number of rows to form a proper grid. If a vector had a different length, R would fail to line up the survey answers properly.
+
+Question #3:
+
+Sex, occupation, and house type are nominal categories, while household and sibling counts are numerical data. Averaging a category like gender is meaningless because the numbers are just labels, not measurements.
+
+Question #4:
+
+Using raw codes like 1 without labels makes the data confusing because outsiders won't know what numbers represent. This shows why coding variables without labels leads to misinterpretation.
+
+Question #5:
+
+We can count the males using nrow() or sum() on the filtered subset. Because 20 respondents is a very small sample, we cannot reliably apply these findings to a larger population.
+
+Question #6:
+
+R reads variables as numbers because they were typed as digits, so it doesn't know their real-world meaning automatically. This shows the difference between how data is stored versus what it actually represents.
+
+Question #7:
+
+The average number of persons at home is meaningful because it measures an actual count. The average of sex codes is meaningless because averaging group labels creates an invalid decimal value.
