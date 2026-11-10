@@ -1,0 +1,192 @@
+---
+title: "R Lab: Data Structures - Matrix and Array"
+author: "Tsidkenu Lumbo Maravilla"
+date: "2026-09-25"
+output: html_document
+---
+
+#### Part A — Creating Matrices
+
+```{r}
+# TODO: Build a standard 3x3 matrix using numbers 1 through 9 and display it
+m1 <- matrix(1:9, nrow = 3, ncol = 3)
+print(m1)
+
+# TODO: Build another 3x3 matrix with numbers 1 to 9, but fill it by rows instead and compare
+m2 <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+print(m2)
+
+scores <- matrix(c(88, 92, 79, 95, 84, 90), nrow = 2, ncol = 3, byrow = TRUE)
+rownames(scores) <- c("Quiz1", "Quiz2")
+colnames(scores) <- c("Ana", "Ben", "Cid") 
+
+# TODO: Display the scores table to verify row and column labels worked
+print(scores)
+
+# TODO: Test what happens when feeding only 8 numbers into a 3x3 matrix
+# matrix(1:8, nrow = 3, ncol = 3)
+
+```
+
+Question #1
+> By default, R fills matrices column by column. Adding `byrow = TRUE` tells R to fill the matrix horizontally across each row first before moving down.
+
+
+Question #2
+> R recycles the first number to fill the empty slot and throws a warning because 8 values don't fit evenly into a 9-slot matrix. The number `1` ends up repeated in the bottom-right corner.
+
+
+
+---
+
+#### Part B — Subsetting Matrices
+
+```{r}
+# Using scores from Part A:
+# TODO: Grab the specific value located at row 1, column 2
+scores[1, 2]
+
+# TODO: Extract the entire first row of data
+scores[1, ]
+
+# TODO: Extract the entire column for Ben using his name
+scores[, "Ben"]
+
+# TODO: Filter and return only scores that are 90 or higher
+scores[scores >= 90]
+
+```
+
+Question #3
+> R downgrades single rows or columns into a standard 1D vector. R does this automatically to make handling single lines of data simpler without needing a strict 2D grid structure.
+
+
+Question #4
+> Logical subsetting pulls elements individually rather than keeping structural rows or columns intact. This flattens the result into an unnamed 1D vector, which strips away the original 2D shape and labels.
+
+
+
+---
+
+#### Part C — Matrix Properties and Operations
+
+```{r}
+# TODO: Check the dimensions, row count, and column count of the scores table
+dim(scores)
+nrow(scores)
+ncol(scores)
+
+# TODO: Flip the scores table using transpose and save it as scores_t
+scores_t <- t(scores)
+print(scores_t)
+dim(scores_t)
+
+a <- matrix(1:4, nrow = 2)
+b <- matrix(5:8, nrow = 2) 
+
+# TODO: Add matrices a and b together matching element by element
+a + b
+
+# TODO: Multiply matrices a and b element by element
+a * b
+
+# TODO: Perform proper matrix dot-product multiplication on a and b
+a %*% b
+
+```
+
+Question #5
+> Element-wise multiplication (`*`) just multiplies matching positions directly across each matrix. True matrix multiplication (`%*%`) calculates the mathematical dot-product of rows and columns combined.
+
+
+Question #6
+> Transposing flips the matrix axes, turning original rows into columns and columns into rows. Because the layout swaps, the row and column names have to switch places to match their new dimensions properly.
+
+
+
+---
+
+#### Part D — cbind() and rbind()
+
+```{r}
+# TODO: Add a new student column named Dex with scores 85 and 91
+scores_v2 <- cbind(scores, Dex = c(85, 91))
+print(scores_v2)
+
+# TODO: Add a new quiz row named Quiz3 with scores 80, 88, and 93 for the original students
+scores_v3 <- rbind(scores, Quiz3 = c(80, 88, 93))
+print(scores_v3)
+
+```
+
+Question #7
+> R throws an error because the number of items in the new vector doesn't match the matrix row count. Both `cbind()` and `rbind()` need matching dimensions to keep the rectangular table shape valid.
+
+
+Question #8
+> You would use `rbind()` when adding new sequential records over time, like appending daily sales reports or weekly attendance logs where each entry represents a new row of observations.
+
+
+
+---
+
+#### Part E — Arrays: Creating and Subsetting
+
+```{r}
+# TODO: Create a 3D array with dimensions 2 rows, 3 columns, and 2 layers using numbers 1 to 12
+arr <- array(1:12, dim = c(2, 3, 2))
+print(arr)
+
+# TODO: Pull out the specific item in row 1, column 2, of the second layer
+arr[1, 2, 2]
+
+# TODO: Extract the entire first layer slice from the array
+arr[, , 1]
+
+# TODO: Verify the full dimensions of the array using dim()
+dim(arr)
+
+```
+
+Question #9
+> The first number is the row count, the second number is the column count, and the third number represents how many layers or slices are stacked together in the third dimension.
+
+
+Question #10
+> Monthly store sales categorized by product rows, store location columns, and months as the third dimension layers. A 2D matrix wouldn't work because it can't isolate multiple temporal layers without flattening out the data.
+
+
+
+---
+
+#### Part F — Critical Thinking Challenge
+
+```{r}
+class_a <- matrix(c(85, 90, 78, 92), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S1", "S2"), c("Midterm", "Final")))
+class_b <- matrix(c(88, 84, 95, 91), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S3", "S4"), c("Midterm", "Final"))) 
+
+# TODO: Combine class_a and class_b into a single matrix for all students using the correct bind function
+all_students <- rbind(class_a, class_b)
+print(all_students)
+
+# TODO: Calculate each student's average score across their midterm and final exams in one line
+rowMeans(all_students)
+
+```
+
+Question #11
+> I chose `rbind()` because both matrices share the exact same column names (`Midterm`, `Final`) but feature completely different sets of students (`S1/S2` versus `S3/S4`), meaning they represent new rows of records.
+
+
+Question #12
+> You would combine all five matrices together by listing them inside a single `rbind()` function call. Afterward, you would check the result with `dim()` to make sure the total row count matches all students combined while the column count stays fixed at 2.
+
+
+
+---
+
+#### Conclusion Section Answer
+
+> A matrix is a two-dimensional grid of rows and columns, while an array adds a third dimension by stacking multiple matrix layers together. Both structures require every element to share the exact same data type. In real data science work, functions like `cbind()` and `rbind()` are super useful when combining separate datasets or adding new batches of observations over time, like merging monthly financial records.
