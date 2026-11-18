@@ -1,5 +1,5 @@
 ---
-title: "Practical Examination 2"
+title: "R Programming Practical Exaination#2"
 author: "Tsidkenu Lumbo Maravilla"
 date: "2026-10-20"
 output:
